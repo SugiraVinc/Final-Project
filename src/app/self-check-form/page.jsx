@@ -37,7 +37,7 @@ const Page = () => {
             ]
         }
     ];
-
+    
     const handleAnswerSelect = (answer) => {
         setAnswers({
             ...answers,
@@ -73,7 +73,7 @@ const Page = () => {
                                     {questions[currentQuestion].question}
                                 </p>
                                 
-                                {/* Multiple choice options */}
+                                {/* Multiple choice options with ordered numbers */}
                                 <div className="space-y-3">
                                     {questions[currentQuestion].options.map((option, index) => (
                                         <label key={index} className="flex items-center space-x-3 p-2 rounded-lg hover:bg-gray-100 cursor-pointer">
@@ -85,7 +85,7 @@ const Page = () => {
                                                 onChange={() => handleAnswerSelect(option)}
                                                 className="form-radio h-5 w-5 text-blue-600" 
                                             />
-                                            <span className="text-black text-lg">{option}</span>
+                                            <span className="text-black text-lg">{`${index + 1}. ${option}`}</span>
                                         </label>
                                     ))}
                                 </div>
@@ -146,7 +146,7 @@ const Page = () => {
                             </div>
 
                             {/* Middle image */}
-                            <div className="border-[15px] border-black bg-white w-[35%] ">
+                            <div className="border-[15px] border-black bg-white w-[35%]">
                                 <div className="p-1">
                                     <img src="/Lil Wayne (3).png" alt="HEAL" className="w-full h-72 ml-1" />
                                 </div>
