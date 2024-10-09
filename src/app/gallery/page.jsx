@@ -10,56 +10,44 @@ const Page = () => {
             <main className="flex-grow flex items-center justify-center p-4">
                 <div className="w-11/12 max-w-6xl aspect-video relative rounded-lg overflow-hidden shadow-lg">
                     <img src="/BC.jpg" alt="Waterfall background" className="w-full h-full object-cover" />
-                    <div className="absolute inset-0 flex items-center justify-center">
-                        <div className="w-full max-w-5xl bg-black bg-opacity-70 p-8 rounded-lg">
-                            <div className="flex justify-center space-x-4 mb-8">
-                                <button className="px-6 py-2 bg-white rounded-full">Gallery</button>
-                                <button className="px-6 py-2 bg-white rounded-full">Videos</button>
-                                <button className="px-6 py-2 bg-white rounded-full">Recommendations</button>
+                    <div className="absolute inset-0 flex flex-col items-center justify-center">
+                        {/* Navigation Bar */}
+                        <div className="w-96 bg-[#8BA6A9] text-white py-2 px-4 flex gap-8 justify-center mb-4">
+                            <span>Gallery</span>
+                            <span>-</span>
+                            <span>Videos</span>
+                            <span>Recommendations</span>
+                        </div>
+                        
+                        {/* Image Grid */}
+                        <div className="grid grid-cols-3 gap-4 p-4">
+                            <div className="aspect-square w-60 h-60 overflow-hidden">
+                                <img 
+                                    src="/depression-107-5864ce77ddeeb__700.jpg" 
+                                    alt="" 
+                                    className="w-full h-full object-cover"
+                                />
                             </div>
-                            
-                            <div className="grid grid-cols-3 gap-4">
-                                {/* First row */}
-                                <div className="aspect-square relative rounded-lg overflow-hidden shadow-lg">
-                                    <img src="/Poetherapy (1).png" alt="Art 1" className="w-full h-full object-cover" />
-                                    <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-70 p-2">
-                                        <p className="text-white text-sm">Description of the art</p>
-                                    </div>
-                                </div>
-                                <div className="aspect-square relative rounded-lg overflow-hidden shadow-lg">
-                                    <img src="/Lil Wayne (3).png" alt="Art 2" className="w-full h-full object-cover" />
-                                    <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-70 p-2">
-                                        <p className="text-white text-sm">Description of the art</p>
-                                    </div>
-                                </div>
-                                <div className="aspect-square relative rounded-lg overflow-hidden shadow-lg">
-                                    <img src="/Selena Gomez Quote 1.png" alt="Art 3" className="w-full h-full object-cover" />
-                                    <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-70 p-2">
-                                        <p className="text-white text-sm">Description of the art</p>
-                                    </div>
-                                </div>
-
-                                {/* Second row */}
-                                <div className="aspect-square relative rounded-lg overflow-hidden shadow-lg">
-                                    <img src="/placeholder-4.jpg" alt="Art 4" className="w-full h-full object-cover" />
-                                    <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-70 p-2">
-                                        <p className="text-white text-sm">Description of the art</p>
-                                    </div>
-                                </div>
-                                <div className="aspect-square relative rounded-lg overflow-hidden shadow-lg">
-                                    <img src="/placeholder-5.jpg" alt="Art 5" className="w-full h-full object-cover" />
-                                    <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-70 p-2">
-                                        <p className="text-white text-sm">Description of the art</p>
-                                    </div>
-                                </div>
-                                <div className="aspect-square relative rounded-lg overflow-hidden shadow-lg">
-                                    <img src="/placeholder-6.jpg" alt="Art 6" className="w-full h-full object-cover" />
-                                    <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-70 p-2">
-                                        <p className="text-white text-sm">Description of the art</p>
-                                    </div>
-                                </div>
-
-            
+                            <div className="aspect-square w-60 h-60 overflow-hidden">
+                                <img 
+                                    src="/depression-through-art-1.jpg" 
+                                    alt="" 
+                                    className="w-full h-full object-cover"
+                                />
+                            </div>
+                            <div className="aspect-square w-60 h-60 overflow-hidden">
+                                <img 
+                                    src="/The Lost Love.png" 
+                                    alt="" 
+                                    className="w-full h-full object-cover"
+                                />
+                            </div>
+                            <div className="aspect-square w-60 h-60 overflow-hidden">
+                                <img 
+                                    src="/brain-sick-ii-prints.jpg" 
+                                    alt="" 
+                                    className="w-full h-full object-cover"
+                                />
                             </div>
                         </div>
                     </div>

@@ -17,17 +17,30 @@ const Page = () => {
 
                             <div className="space-y-4">
                                 <button className="w-full bg-gray-200 text-black py-3 rounded-full font-semibold hover:bg-gray-300 transition duration-300">
+                                <Link href='/understand-depression'>
                                     Understand Depression
+                                </Link>
                                 </button>
+                                
                                 <button className="w-full bg-gray-200 text-black py-3 rounded-full font-semibold hover:bg-gray-300 transition duration-300">
+                                <Link href='/testimony'>
                                     Testimony
+                                </Link>
                                 </button>
+                                
                                 <button className="w-full bg-gray-200 text-black py-3 rounded-full font-semibold hover:bg-gray-300 transition duration-300">
+                                <Link href='/gallery'>
                                     Creative Pieces
+                                </Link>
                                 </button>
-                                <button className="w-full bg-gray-200 text-black py-3 rounded-full font-semibold hover:bg-gray-300 transition duration-300">
+                               
+                               
+                               <button className="w-full bg-gray-200 text-black py-3 rounded-full font-semibold hover:bg-gray-300 transition duration-300">
+                               <Link href='self-check'>
                                     Depression Self-check
+                               </Link>
                                 </button>
+                                
                             </div>
 
                             {/* Safe Space button */}
