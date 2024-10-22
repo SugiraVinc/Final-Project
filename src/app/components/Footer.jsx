@@ -33,9 +33,9 @@ const Footer = () => {
         <div className="bg-[#4AA9AD] py-8"> 
           <div className="container mx-auto px-4 flex justify-between items-center">
     
-            <div className="text-center">
+            <Link href='/' className="text-center">
               <img src="/smile2.png" alt="Smile" className="w-7 h-7 mx-auto" />
-            </div>
+            </Link>
 
             <div className="flex space-x-6">
               <Link href="https://facebook.com" className="w-6 h-6 rounded-full flex items-center justify-center text-white">

@@ -10,7 +10,7 @@ const LandingPage = () => {
     { name: 'BIPOLAR', link: '/bipolar' },
     { name: 'LONELINESS', link: '/loneliness' },
     { name: 'SOLITUDE', link: '/solitude' },
-    { name: 'SAFE SPACE', link: '/safe-space' }
+    { name: 'SAFE SPACE', link: '/chat' }
   ];
 
 
