@@ -23,7 +23,13 @@ const Page = () => {
   useEffect(() => {
     const storedUser = localStorage.getItem('userInfo');
     if (storedUser) {
-      router.push('/')
+      const userInfo = JSON.parse(storedUser);
+      // Check if stored user is a contributor
+      if (userInfo.isContributor) {
+        router.push('/contributor-dashboard');
+      } else {
+        router.push('/');
+      }
     }
   }, [router]);
 
@@ -55,7 +61,12 @@ const Page = () => {
           },
           className: 'custom-toast-animation',
         });
-        router.push('/');
+        
+        if(res.isContributor) {
+          router.push('/contributor-dashboard');
+        } else {
+          router.push('/');
+        }
       }
     } catch (err) {
       toast.error(err?.data?.message || 'Registration failed', {

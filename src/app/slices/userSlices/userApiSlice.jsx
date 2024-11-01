@@ -45,6 +45,70 @@ export const userApiSlice = apiSlice.injectEndpoints({
                 body: data
             })
         }),
+        createTest: builder.mutation({
+            query: (data) => ({
+                url:`/test/test`,
+                method: 'POST',
+                body: data
+            })
+        }),
+        getTest: builder.query({
+            query: () => ({
+                url:`/test/test`,
+                method: 'GET'
+            })
+        }),
+        postContent: builder.mutation({
+            query: (data) => ({
+                url:`/contributor/contributor`,
+                method: 'POST',
+                body: data
+            })
+        }),
+        getContent: builder.query({
+            query: () => ({
+                url:`/contributor/contributor`,
+                method: 'GET'
+            })
+        }),
+        getAllContent: builder.query({
+            query: () => ({
+                url:`/contributor/content`,
+                method: 'GET'
+            })
+        }),
+        getNotes: builder.query({
+            query: () => ({
+                url: '/notes/notes',
+                method: 'GET'
+            })
+        }),
+        getNoteById: builder.query({
+            query: (id) => ({
+                url: `/notes/notes/${id}`,
+                method: 'GET'
+            })
+        }),
+        createNote: builder.mutation({
+            query: (data) => ({
+                url: `/notes/notes`,
+                method: 'POST',
+                body: data
+            })
+        }),
+        updateNote: builder.mutation({
+            query: (data) => ({
+                url: `/notes/notes/${data.id}`,
+                method: 'PUT',
+                body: data
+            })
+        }),
+        deleteNote: builder.mutation({
+            query: (id) => ({
+                url: `/notes/notes/${id}`,
+                method: 'DELETE'
+            })
+        }),
     })
 })
 
@@ -54,5 +118,15 @@ export const {
     useLoginMutation, 
     useGoogleLoginMutation, 
     useEditUserMutation, 
-    useGoogleRegisterMutation
+    useGoogleRegisterMutation,
+    useCreateTestMutation,
+    useGetTestQuery, 
+    usePostContentMutation,
+    useGetAllContentQuery,
+    useGetContentQuery,
+    useGetNotesQuery,
+    useGetNoteByIdQuery,
+    useCreateNoteMutation,
+    useUpdateNoteMutation,
+    useDeleteNoteMutation
 } = userApiSlice

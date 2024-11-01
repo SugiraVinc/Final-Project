@@ -6,7 +6,7 @@ import Link from 'next/link';
 const LandingPage = () => {
   const topics = [
     { name: 'DEPRESSION', link: '/depression-room' }, 
-    { name: 'ANXIETY', link: '/anxiety' },
+    { name: 'ANXIETY', link: '/anxiety-room' },
     { name: 'BIPOLAR', link: '/bipolar' },
     { name: 'LONELINESS', link: '/loneliness' },
     { name: 'SOLITUDE', link: '/solitude' },

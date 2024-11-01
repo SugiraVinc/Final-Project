@@ -1,53 +1,35 @@
-'use client'
-import React, { useEffect } from 'react'
+import React from 'react'
 import Header from '../components/Header'
 import Link from 'next/link';
+
 import { FaFacebookF, FaTwitter, FaInstagram } from 'react-icons/fa';
-import { useGetAllContentQuery } from '../slices/userSlices/userApiSlice';
 
 const Page = () => {
-    const {data: content, refetch} = useGetAllContentQuery()
-   
-    useEffect(() => {
-        if(content) {
-          refetch()
-        }
-    }, [content, refetch])
-    
+
     return (
         <div className="min-h-screen bg-cover bg-center bg-no-repeat flex flex-col pt-14" style={{ backgroundImage: `url('/vecteezy_blue-vector-grunge-background_107486.jpg')` }}>
             <Header />
             <main className="flex-grow flex items-center justify-center p-4">
                 <div className="w-11/12 max-w-6xl aspect-video relative rounded-lg overflow-hidden shadow-lg">
                     <img src="/BC.jpg" alt="Waterfall background" className="w-full h-full object-cover" />
-                    <div className="absolute inset-0 flex flex-col items-center justify-center">
-                        {/* Navigation Bar */}
-                        <div className="w-96 bg-[#8BA6A9] text-white py-2 px-4 flex gap-8 justify-center mb-4">
-                            <span>Gallery</span>
-                            <span>-</span>
-                            <span>Videos</span>
-                            <span>Recommendations</span>
-                        </div>
-                        
-                        {/* Image Grid */}
-                        <div className="grid grid-cols-3 gap-4 p-4">
-                        {content && content.data.map((cont) => (
-    <div key={cont._id} className="flex flex-col aspect-square w-60 h-60">
-        <div className="relative h-52 overflow-hidden rounded-lg shadow-md group">
-            <img 
-                src={cont.image.url} 
-                alt="" 
-                className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-            />
-            <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"/>
-        </div>
-        <div className="mt-2 text-center">
-            <h3 className="text-white text-sm font-medium bg-[#8BA6A9] py-1 px-3 rounded-full shadow-sm">
-                {cont.room}
-            </h3>
-        </div>
-    </div>
-))}
+                    <div className="absolute inset-0 flex items-center justify-center">
+                        <div className="w-full max-w-md bg-black bg-opacity-70 p-8 rounded-lg">
+                            {/* White background text box */}
+                            <div className="bg-white p-6 mb-8 rounded-lg">
+                                <p className="text-black text-lg">
+                                    This general mental health self-check is designed to help you understand
+                                    your current mental health status. It is a score based test and will help us to
+                                    recommend tips, creative artworks, and actionable practices. This will only
+                                    take three minutes and will change your life big time.
+                                </p>
+                            </div>
+
+                            {/* Separated button */}
+                            <Link href='/self-check-depression-form'>
+                            <button className="w-full bg-white text-black py-3 rounded-full font-semibold hover:bg-gray-200 transition duration-300">
+                                Take a check
+                            </button>
+                            </Link>
                             
                         </div>
                     </div>
@@ -95,8 +77,8 @@ const Page = () => {
                                 </div>
                             </div>
 
-                            {/* Middle image */}
-                            <div className="border-[15px] border-black bg-white w-[35%]">
+                            {/* Middle image - adjusted to be only slightly smaller */}
+                            <div className="border-[15px] border-black bg-white w-[35%] ">
                                 <div className="p-1">
                                     <img src="/Lil Wayne (3).png" alt="HEAL" className="w-full h-72 ml-1" />
                                 </div>
@@ -112,29 +94,30 @@ const Page = () => {
                     </div>
                 </div>
 
-                <div className="bg-[#4AA9AD] py-8">
-                    <div className="container mx-auto px-4 flex justify-between items-center">
-                        <div className="text-center">
-                            <img src="/smile2.png" alt="Smile" className="w-7 h-7 mx-auto" />
-                        </div>
+                <div className="bg-[#4AA9AD] py-8"> 
+          <div className="container mx-auto px-4 flex justify-between items-center">
+    
+            <div className="text-center">
+              <img src="/smile2.png" alt="Smile" className="w-7 h-7 mx-auto" />
+            </div>
 
-                        <div className="flex space-x-6">
-                            <Link href="https://facebook.com" className="w-6 h-6 rounded-full flex items-center justify-center text-white">
-                                <FaFacebookF size={20} />
-                            </Link>
-                            <Link href="https://twitter.com" className="w-6 h-6 rounded-full flex items-center justify-center text-white">
-                                <FaTwitter size={20} />
-                            </Link>
-                            <Link href="https://instagram.com" className="w-6 h-6 rounded-full flex items-center justify-center text-white">
-                                <FaInstagram size={20} />
-                            </Link>
-                        </div>
-                    </div>
+            <div className="flex space-x-6">
+              <Link href="https://facebook.com" className="w-6 h-6 rounded-full flex items-center justify-center text-white">
+                <FaFacebookF size={20} />
+              </Link>
+              <Link href="https://twitter.com" className="w-6 h-6 rounded-full flex items-center justify-center text-white">
+                <FaTwitter size={20} />
+              </Link>
+              <Link href="https://instagram.com" className="w-6 h-6 rounded-full flex items-center justify-center text-white">
+                <FaInstagram size={20} /> 
+              </Link>
+            </div>
+          </div>
 
-                    <div className="text-center text-white text-xs mt-10">
-                        © Copyright Year
-                    </div>
-                </div>
+          <div className="text-center text-white text-xs mt-10">
+            © Copyright Year
+          </div>
+        </div>
             </footer>
         </div>
     )

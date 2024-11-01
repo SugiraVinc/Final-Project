@@ -20,7 +20,13 @@ const Page = () => {
   useEffect(() => {
     const storedUser = localStorage.getItem('userInfo');
     if (storedUser) {
-      router.push('/')
+      const userInfo = JSON.parse(storedUser);
+      // Check if stored user is a contributor
+      if (userInfo.isContributor) {
+        router.push('/contributor-dashboard');
+      } else {
+        router.push('/');
+      }
     }
   }, [router]);
 
@@ -29,7 +35,7 @@ const Page = () => {
     try {
       const res = await login({ email, password }).unwrap();
       if (res) {
-        dispatch(setCredentials({...res}))
+        dispatch(setCredentials({...res}));
         toast.success('Login successful', {
           icon: '👏',
           style: {
@@ -39,7 +45,13 @@ const Page = () => {
           },
           className: 'custom-toast-animation',
         });
-        router.push('/');
+        
+        // Redirect based on user type
+        if(res.isContributor) {
+          router.push('/contributor-dashboard');
+        } else {
+          router.push('/');
+        }
       }
     } catch (err) {
       toast.error(err?.data?.message || 'Login failed', {
@@ -51,7 +63,7 @@ const Page = () => {
         },
         className: 'custom-toast-animation',
       });
-      console.error(err)
+      console.error(err);
     }
   }
 
@@ -109,4 +121,4 @@ const Page = () => {
   )
 }
 
-export default Page
+export default Page;

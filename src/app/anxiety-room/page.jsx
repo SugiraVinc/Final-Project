@@ -20,37 +20,21 @@ const Page = () => {
                             {/* Replacing the previous text and button section with the new buttons */}
 
                             <div className="space-y-4">
-                                <button className="w-full bg-gray-200 text-black py-3 rounded-full font-semibold hover:bg-gray-300 transition duration-300">
-                                <Link href='/understand-depression'>
-                                    Understand Depression
-                                </Link>
-                                </button>
                                 
-                                <button className="w-full bg-gray-200 text-black py-3 rounded-full font-semibold hover:bg-gray-300 transition duration-300">
-                                <Link href='/testimony'>
-                                    Testimony
-                                </Link>
-                                </button>
-                                
-                                <Link href='/gallery'>
-                                <button className="w-full mt-3 bg-gray-200 text-black py-3 rounded-full font-semibold hover:bg-gray-300 transition duration-300">
-                                    Creative Pieces
-                                </button>
-                                </Link>
                                
                                
                                 {userInfo ? (
-                                          <Link href='/self-check-depression'>
-                                    <button className="w-full mt-3 bg-gray-200 text-black py-3 rounded-full font-semibold hover:bg-gray-300 transition duration-300">
-                                              Depression Self-check
-                                      </button>
+                                 <button className="w-full bg-gray-200 text-black py-3 rounded-full font-semibold hover:bg-gray-300 transition duration-300">
+                                          <Link href='/self-check-anxiety'>
+                                              Anxiety Self-check
                                           </Link>
+                                      </button>
                                   ) : (
                                       <button 
                                           onClick={() => toast.error('Please login to access the Depression Self-check')}
                                           className="w-full bg-gray-300 text-black py-3 rounded-full font-semibold hover:bg-gray-300 transition duration-300"
                                       >
-                                          Depression Self-check
+                                          Anxiety Self-check
                                       </button>
                                   )}       
                             </div>

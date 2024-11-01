@@ -6,7 +6,7 @@ import { useLogOutMutation } from '../slices/userSlices/userApiSlice'
 
 const Header = () => {
   const [user, setUser] = useState(null);
-  const [showLogout, setShowLogout] = useState(false);
+  const [showDropdown, setShowDropdown] = useState(false);
   const router = useRouter();
   const [logout] = useLogOutMutation();
 
@@ -37,23 +37,34 @@ const Header = () => {
         {user ? (
           <div 
             className="relative"
-            onMouseEnter={() => setShowLogout(true)}
-            onMouseLeave={() => setShowLogout(false)}
+            onMouseEnter={() => setShowDropdown(true)}
+            onMouseLeave={() => setShowDropdown(false)}
           >
             <p className="text-sm font-semibold cursor-pointer">{user.name}</p>
-            {showLogout && (
-              <button 
-                onClick={handleLogout}
-                className="absolute top-4 left-0 mt-1 px-4 py-2 bg-gray-100 hover:bg-gray-200 border border-gray-300 rounded-md shadow text-sm"
-              >
-                Logout
-              </button>
+            {showDropdown && (
+              <div className="absolute top-4 left-0 mt-1 bg-white border border-gray-300 rounded-md shadow-lg min-w-[120px]">
+                <Link 
+                  href="/profile" 
+                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-t-md"
+                >
+                  Profile
+                </Link>
+                <button 
+                  onClick={handleLogout}
+                  className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-b-md"
+                >
+                  Logout
+                </button>
+              </div>
             )}
           </div>
         ) : (
           <Link href="/login" className="text-sm font-semibold">LOGIN</Link>
         )}
         <Link href="/self-check" className="text-sm font-semibold">SELF CHECK</Link>
+        {user && user.isContributor && (
+          <Link href="/contributor-dashboard" className="text-sm font-semibold">Dashboard</Link>
+        )}
       </nav>
     </header>
   );
