@@ -4,9 +4,10 @@ import Header from '../components/Header';
 import Link from 'next/link';
 import { FaFacebookF, FaTwitter, FaInstagram } from 'react-icons/fa';
 import toast from 'react-hot-toast';
+import { useSelector } from 'react-redux';
 
 const Page = () => {    
-    const userInfo = localStorage.getItem('userInfo');
+    const {userInfo} = useSelector(state => state.auth)
 
     return (
         <div className="min-h-screen bg-cover bg-center bg-no-repeat flex flex-col pt-14" style={{ backgroundImage: `url('/vecteezy_blue-vector-grunge-background_107486.jpg')` }}>

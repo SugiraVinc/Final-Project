@@ -1,6 +1,6 @@
 'use client'
 import React, { useState, useEffect } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useRegisterMutation } from '../slices/userSlices/userApiSlice'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
@@ -19,12 +19,10 @@ const Page = () => {
   const router = useRouter();
   const dispatch = useDispatch()
   const [register] = useRegisterMutation();
+  const {userInfo} = useSelector(state => state.auth)
 
   useEffect(() => {
-    const storedUser = localStorage.getItem('userInfo');
-    if (storedUser) {
-      const userInfo = JSON.parse(storedUser);
-      // Check if stored user is a contributor
+    if (userInfo) {
       if (userInfo.isContributor) {
         router.push('/contributor-dashboard');
       } else {

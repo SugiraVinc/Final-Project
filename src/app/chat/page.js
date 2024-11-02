@@ -1,6 +1,7 @@
 'use client'
 import React, { useState, useEffect } from 'react';
 import io from 'socket.io-client';
+import { useSelector } from 'react-redux';
 
 let socket;
 
@@ -8,14 +9,13 @@ const Chat = () => {
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState([]);
   const ENDPOINT = `${process.env.NEXT_PUBLIC_API_URL}`;
+
+  const {userInfo} = useSelector(state => state.auth)
   
-  // Get username from localStorage or use 'Anonymous'
   const [username] = useState(() => {
     if (typeof window !== 'undefined') {
-      const userInfo = localStorage.getItem('userInfo');
       if (userInfo) {
-        const { name } = JSON.parse(userInfo);
-        return name || 'Anonymous';
+        return userInfo.name || 'Anonymous';
       }
     }
     return 'Anonymous';

@@ -1,27 +1,24 @@
 'use client'
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useLogOutMutation } from '../slices/userSlices/userApiSlice'
+import { logOut } from '../slices/userSlices/authSlice'
+import { useDispatch, useSelector} from 'react-redux'
 
 const Header = () => {
-  const [user, setUser] = useState(null);
   const [showDropdown, setShowDropdown] = useState(false);
   const router = useRouter();
   const [logout] = useLogOutMutation();
+  const dispatch = useDispatch()
 
-  useEffect(() => {
-    const storedUser = localStorage.getItem('userInfo');
-    if (storedUser) {
-      setUser(JSON.parse(storedUser));
-    }
-  }, []);
+  const {userInfo} = useSelector(state => state.auth)
+
 
   const handleLogout = async() => {
     try {
-      localStorage.removeItem('userInfo');
-      setUser(null);
       await logout();
+      dispatch(logOut())
       router.push('/login');
     } catch (error) {
       console.log(error);
@@ -34,13 +31,13 @@ const Header = () => {
         <Link href="/"><img src="/logo.png" alt="Logo" className="w-5 h-5" /></Link>
       </div>
       <nav className="flex items-center space-x-4">
-        {user ? (
+        {userInfo ? (
           <div 
             className="relative"
             onMouseEnter={() => setShowDropdown(true)}
             onMouseLeave={() => setShowDropdown(false)}
           >
-            <p className="text-sm font-semibold cursor-pointer">{user.name}</p>
+            <p className="text-sm font-semibold cursor-pointer">{userInfo && userInfo.name}</p>
             {showDropdown && (
               <div className="absolute top-4 left-0 mt-1 bg-white border border-gray-300 rounded-md shadow-lg min-w-[120px]">
                 <Link 
@@ -62,7 +59,7 @@ const Header = () => {
           <Link href="/login" className="text-sm font-semibold">LOGIN</Link>
         )}
         <Link href="/self-check" className="text-sm font-semibold">SELF CHECK</Link>
-        {user && user.isContributor && (
+        {userInfo && userInfo.isContributor && (
           <Link href="/contributor-dashboard" className="text-sm font-semibold">Dashboard</Link>
         )}
       </nav>
