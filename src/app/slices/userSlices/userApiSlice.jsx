@@ -109,6 +109,12 @@ export const userApiSlice = apiSlice.injectEndpoints({
                 method: 'DELETE'
             })
         }),
+        deleteUser: builder.mutation({
+            query: (id) => ({
+                url: `${BASE_URL}/delete/${id}`,
+                method: 'DELETE'
+            })
+        }),
     })
 })
 
@@ -128,5 +134,6 @@ export const {
     useGetNoteByIdQuery,
     useCreateNoteMutation,
     useUpdateNoteMutation,
-    useDeleteNoteMutation
+    useDeleteNoteMutation,
+    useDeleteUserMutation
 } = userApiSlice
