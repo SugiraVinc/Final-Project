@@ -19,12 +19,12 @@ const NotesInterface = () => {
     e.preventDefault();
     try {
       await createNote(noteData).unwrap();
-      router.push('/diary'); // Redirect to diary page after successful creation
+      router.push('/diary');
       toast.success('note created successfully')
 
     } catch (error) {
       console.error('Failed to create note:', error);
-      // You might want to add error handling UI here
+     
     }
   };
 
