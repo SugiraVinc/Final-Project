@@ -1,3 +1,4 @@
+'use client'
 import Header from '@/app/components/Header';
 import ImageFotter from '@/app/components/ImageFotter';
 import MusicPlayer from '@/app/components/MusicFooter';
