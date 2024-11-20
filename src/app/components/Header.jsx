@@ -59,7 +59,7 @@ const Header = () => {
           >
             <p className="text-sm font-semibold cursor-pointer">{userInfo && userInfo.name}</p>
             {showDropdown && (
-              <div className="absolute top-full mt-1 bg-white border border-gray-300 rounded-md shadow-lg min-w-[120px]">
+              <div className="absolute top-full  bg-white border border-gray-300 rounded-md shadow-lg min-w-[120px]">
                 <Link
                   href="/profile"
                   className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-t-md"
