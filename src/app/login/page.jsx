@@ -15,7 +15,7 @@ const Page = () => {
   
   const router = useRouter();
   const dispatch = useDispatch()
-  const [login] = useLoginMutation();
+  const [login, {isLoading}] = useLoginMutation();
  
   const {userInfo} = useSelector(state => state.auth)
   useEffect(() => {
@@ -98,7 +98,7 @@ const Page = () => {
                     className="w-full py-3 px-2 focus:outline-none" 
                   />
                 </div>
-                <button type="submit" className="w-full bg-white text-black py-3 rounded-full font-semibold hover:bg-gray-200 transition duration-300">Login</button>
+                <button type="submit" className="w-full bg-white text-black py-3 rounded-full font-semibold hover:bg-gray-200 transition duration-300">{isLoading? "Login...": "Login"}</button>
               </form>
               <div className="mt-4 flex justify-between text-sm text-gray-300">
                 <Link href="#" className="hover:text-white">Forgot your password</Link>

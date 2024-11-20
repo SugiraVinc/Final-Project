@@ -77,6 +77,38 @@ export const userApiSlice = apiSlice.injectEndpoints({
                 method: 'GET'
             })
         }),
+        getSingleContent: builder.query({
+            query: (id) => ({
+                url:`/contributor/content/${id}`,
+                method: 'GET'
+            })
+        }),
+        createComment: builder.mutation({
+            query: (data) => ({
+                url:`/contributor/comments/${data.id}`,
+                method: 'POST',
+                body: data
+            })
+        }),
+        getComment: builder.query({
+            query: (id) => ({
+                url:`/contributor/comments/${id}`,
+                method: 'GET'
+            })
+        }),
+        createLike: builder.mutation({
+            query: (data) => ({
+                url:`/contributor/likes/${data.id}`,
+                method: 'POST',
+                body: data
+            })
+        }),
+        getLike: builder.query({
+            query: (id) => ({
+                url:`/contributor/likes/${id}`,
+                method: 'GET'
+            })
+        }),
         getNotes: builder.query({
             query: () => ({
                 url: '/notes/notes',
@@ -135,5 +167,10 @@ export const {
     useCreateNoteMutation,
     useUpdateNoteMutation,
     useDeleteNoteMutation,
-    useDeleteUserMutation
+    useDeleteUserMutation,
+    useGetSingleContentQuery,
+    useCreateCommentMutation,
+    useGetCommentQuery,
+    useCreateLikeMutation,
+    useGetLikeQuery
 } = userApiSlice

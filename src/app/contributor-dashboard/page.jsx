@@ -10,8 +10,10 @@ const DashboardHeader = () => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [selectedRoom, setSelectedRoom] = useState(null);
   const [errorMessage, setErrorMessage] = useState('');
+  const [title, setTitle] = useState('')
+  const [description, setDescription] = useState('')
   const fileInputRef = useRef(null);
-  const [postContent] = usePostContentMutation()
+  const [postContent, {isLoading}] = usePostContentMutation()
   const {data: getContent, refetch } = useGetContentQuery()
 
 
@@ -22,9 +24,8 @@ const DashboardHeader = () => {
   }, [getContent, refetch])
 
   const rooms = [
-    { id: 1, name: 'Depression', image: '/path/to/depression_image.jpg' },
-    { id: 2, name: 'Anxiety', image: '/path/to/anxiety_image.jpg' },
-    { id: 3, name: 'Bipolar', image: '/path/to/bipolar_image.jpg' },
+    { id: 1, name: 'Depression' },
+    { id: 2, name: 'Anxiety' },
   ];
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
@@ -58,10 +59,12 @@ const DashboardHeader = () => {
 
     try {
       const formData = new FormData();
-      formData.append('image', selectedFile);
+      formData.append('upload', selectedFile);
       formData.append('room', selectedRoom.name);
+      formData.append('description', description);
+      formData.append('title', title);
 
-      const res = await postContent(formData).unwrap()
+      await postContent(formData).unwrap()
       toast.success('Data sent successfully');
       refetch()
      
@@ -120,6 +123,32 @@ const DashboardHeader = () => {
                 ))}
               </select>
             </div>
+            <div className="flex flex-col space-y-2">
+              <label htmlFor="title" className="text-white text-lg">Title</label>
+              <input
+                type="text"
+                id="title"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+                className="p-3 rounded-lg bg-[#E5E7EB] border border-[#4AA9AD] focus:outline-none focus:ring-2 focus:ring-[#4AA9AD] text-lg"
+                placeholder="Enter the title here"
+                required
+              />
+            </div>
+
+            {/* Description Input */}
+            <div className="flex flex-col space-y-2">
+              <label htmlFor="description" className="text-white text-lg">Full Story</label>
+              <textarea
+                id="description"
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+                className="p-3 rounded-lg bg-[#E5E7EB] border border-[#4AA9AD] focus:outline-none focus:ring-2 focus:ring-[#4AA9AD] text-lg"
+                placeholder="Enter a Full Story here"
+                rows="4"
+                required
+              />
+            </div>
 
             {/* Table content area with pagination */}
             <div className="mt-4 bg-gray-100 rounded-lg w-full h-[500px] p-6 overflow-auto">
@@ -131,15 +160,33 @@ const DashboardHeader = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {getContent && getContent.data.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage).map((room, index) => (
-                    <tr key={index} className="border-b hover:bg-gray-200">
-                      <td className="p-4">
-                        <img src={room.image.url} alt={room.room} className="w-16 h-16 object-cover rounded-md" />
-                      </td>
-                      <td className="p-4 text-gray-800">{room.room}</td>
-                    </tr>
-                  ))}
-                </tbody>
+  {getContent &&
+    getContent.data
+      .slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)
+      .map((room, index) => (
+        <tr key={index} className="border-b hover:bg-gray-200">
+          <td className="p-4">
+            {room.mediaType === "video" ? (
+              <video
+                src={room.media.url}
+                controls
+                className="w-32 h-32 object-cover rounded-md"
+              >
+                Your browser does not support the video tag.
+              </video>
+            ) : (
+              <img
+                src={room.media.url}
+                alt={room.room}
+                className="w-16 h-16 object-cover rounded-md"
+              />
+            )}
+          </td>
+          <td className="p-4 text-gray-800">{room.room}</td>
+        </tr>
+      ))}
+</tbody>
+
               </table>
 
               {/* Pagination Controls */}
@@ -169,7 +216,7 @@ const DashboardHeader = () => {
             )}
             <div className="mt-4 self-end">
               <button type="submit" className="px-4 py-2 bg-[#4AA9AD] text-white rounded hover:bg-[#3b8b8f]">
-                Submit
+               {isLoading ? "Submitting...": "Submit"}
               </button>
             </div>
           </form>
