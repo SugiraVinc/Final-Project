@@ -16,7 +16,7 @@ const DashboardHeader = () => {
         <Header />
         <div className="mx-auto max-w-5xl rounded-lg bg-black/80 p-6 mt-10">
           {/* Centered clickable squares */}
-          <div className="flex bg-[#4AA9AD] h-[400px] justify-center items-center h-full">
+          <div className="flex bg-[#4AA9AD] h-[800px] justify-center items-center">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {/* Square 1 */}
               <Link
@@ -37,12 +37,12 @@ const DashboardHeader = () => {
         </div>
       </div>
       <footer>
-                <div className="w-full">
-                    <MusicPlayer/>
-                    <ImageFotter/>                    
-                </div>
-                <RealFooter/>               
-            </footer>
+        <div className="w-full">
+          <MusicPlayer />
+          <ImageFotter />
+        </div>
+        <RealFooter />
+      </footer>
     </>
   );
 };
