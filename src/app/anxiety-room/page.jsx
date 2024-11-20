@@ -8,6 +8,7 @@ import MusicFooter from '../components/MusicFooter';
 import ImageFotter from '../components/ImageFotter';
 import RealFooter from '../components/RealFooter';
 
+
 const Page = () => {
     const {userInfo} = useSelector(state => state.auth)
 
