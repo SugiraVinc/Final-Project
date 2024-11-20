@@ -1,91 +1,12 @@
-'use client';
-import React, { useState, useRef, useEffect } from 'react';
+import React from 'react';
 import Header from '../components/Header';
 import Link from 'next/link';
 import { FaFacebookF, FaTwitter, FaInstagram } from 'react-icons/fa';
-import toast from 'react-hot-toast';
-import { usePostContentMutation, useGetContentQuery } from '../slices/userSlices/userApiSlice';
+import ImageFotter from '../components/ImageFotter';
+import RealFooter from '../components/RealFooter';
+import MusicPlayer from '../components/MusicFooter';
 
 const DashboardHeader = () => {
-  const [selectedFile, setSelectedFile] = useState(null);
-  const [selectedRoom, setSelectedRoom] = useState(null);
-  const [errorMessage, setErrorMessage] = useState('');
-  const [title, setTitle] = useState('')
-  const [description, setDescription] = useState('')
-  const fileInputRef = useRef(null);
-  const [postContent, {isLoading}] = usePostContentMutation()
-  const {data: getContent, refetch } = useGetContentQuery()
-
-
-  useEffect(() => {
-    if(getContent) {
-      refetch()
-    }
-  }, [getContent, refetch])
-
-  const rooms = [
-    { id: 1, name: 'Depression' },
-    { id: 2, name: 'Anxiety' },
-  ];
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 10;
-  const totalPages = Math.ceil((getContent && getContent.data.length) / itemsPerPage);
-
-  const handleFileSelect = (event) => {
-    const file = event.target.files[0];
-    if (file) {
-      setSelectedFile(file);
-      console.log('Selected file:', file.name);
-    }
-  };
-
-  const handleRoomSelect = (room) => {
-    setSelectedRoom(room);
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (!selectedFile) {
-      setErrorMessage('Please select a file');
-      return;
-    }
-
-    if (!selectedRoom) {
-      setErrorMessage('Please select a room');
-      return;
-    }
-
-    setErrorMessage('');
-
-    try {
-      const formData = new FormData();
-      formData.append('upload', selectedFile);
-      formData.append('room', selectedRoom.name);
-      formData.append('description', description);
-      formData.append('title', title);
-
-      await postContent(formData).unwrap()
-      toast.success('Data sent successfully');
-      refetch()
-     
-    } catch (err) {
-      console.error('Error uploading file and room data:', err);
-      toast.error(err?.data?.message);
-    }
-  };
-
-  const handleNextPage = () => {
-    if (currentPage < totalPages) {
-      setCurrentPage(currentPage + 1);
-    }
-  };
-
-  const handlePreviousPage = () => {
-    if (currentPage > 1) {
-      setCurrentPage(currentPage - 1);
-    }
-  };
-
   return (
     <>
       <div
@@ -94,158 +15,34 @@ const DashboardHeader = () => {
       >
         <Header />
         <div className="mx-auto max-w-5xl rounded-lg bg-black/80 p-6 mt-10">
-          <form onSubmit={handleSubmit} className="flex flex-col">
-            <div className="flex justify-between items-center mb-4">
-              {/* Upload and Choose Room Button Logic */}
-              <div className="relative">
-                <input
-                  type="file"
-                  ref={fileInputRef}
-                  onChange={handleFileSelect}
-                  accept="image/*,video/*,audio/*"
-                  className="bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded flex items-center gap-2 text-sm group"
-                  required
-                />
-              </div>
-
-              {/* Choose Room Dropdown */}
-              <select
-                value={selectedRoom ? selectedRoom.name : ''}
-                onChange={(e) => handleRoomSelect({ name: e.target.value })}
-                className="block appearance-none w-48 bg-[#E5E7EB] border h-10 border-[#E5E7EB] hover:border-gray-500 px-2 py-1 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
-                required
+          {/* Centered clickable squares */}
+          <div className="flex bg-[#4AA9AD] h-[400px] justify-center items-center h-full">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {/* Square 1 */}
+              <Link
+                href="/contributor-dashboard/create-testimony"
+                className="bg-[#4AA9AD] border-2 border-black w-40 h-40 md:w-48 md:h-48 rounded-md flex items-center justify-center text-white text-lg font-semibold shadow-md hover:shadow-lg transition-shadow duration-300"
               >
-                <option value="" className="text-red">Select Room</option>
-                {rooms.map((room) => (
-                  <option key={room.id} value={room.name}>
-                    {room.name}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div className="flex flex-col space-y-2">
-              <label htmlFor="title" className="text-white text-lg">Title</label>
-              <input
-                type="text"
-                id="title"
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
-                className="p-3 rounded-lg bg-[#E5E7EB] border border-[#4AA9AD] focus:outline-none focus:ring-2 focus:ring-[#4AA9AD] text-lg"
-                placeholder="Enter the title here"
-                required
-              />
-            </div>
-
-            {/* Description Input */}
-            <div className="flex flex-col space-y-2">
-              <label htmlFor="description" className="text-white text-lg">Full Story</label>
-              <textarea
-                id="description"
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-                className="p-3 rounded-lg bg-[#E5E7EB] border border-[#4AA9AD] focus:outline-none focus:ring-2 focus:ring-[#4AA9AD] text-lg"
-                placeholder="Enter a Full Story here"
-                rows="4"
-                required
-              />
-            </div>
-
-            {/* Table content area with pagination */}
-            <div className="mt-4 bg-gray-100 rounded-lg w-full h-[500px] p-6 overflow-auto">
-              <table className="w-full text-left bg-white rounded-lg shadow-md">
-                <thead>
-                  <tr className="bg-[#4AA9AD] text-white">
-                    <th className="p-4">Image</th>
-                    <th className="p-4">Room</th>
-                  </tr>
-                </thead>
-                <tbody>
-  {getContent &&
-    getContent.data
-      .slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)
-      .map((room, index) => (
-        <tr key={index} className="border-b hover:bg-gray-200">
-          <td className="p-4">
-            {room.mediaType === "video" ? (
-              <video
-                src={room.media.url}
-                controls
-                className="w-32 h-32 object-cover rounded-md"
+                Testimonials
+              </Link>
+              {/* Square 2 */}
+              <Link
+                href="/contributor-dashboard/create-creative-pieces"
+                className="bg-[#4AA9AD] border-2 border-black w-40 h-40 md:w-48 md:h-48 rounded-md flex items-center justify-center text-white text-lg font-semibold shadow-md hover:shadow-lg transition-shadow duration-300"
               >
-                Your browser does not support the video tag.
-              </video>
-            ) : (
-              <img
-                src={room.media.url}
-                alt={room.room}
-                className="w-16 h-16 object-cover rounded-md"
-              />
-            )}
-          </td>
-          <td className="p-4 text-gray-800">{room.room}</td>
-        </tr>
-      ))}
-</tbody>
-
-              </table>
-
-              {/* Pagination Controls */}
-              <div className="flex justify-center items-center mt-4">
-                <button
-                  onClick={handlePreviousPage}
-                  disabled={currentPage === 1}
-                  className="px-4 py-2 mx-2 bg-[#4AA9AD] text-white rounded disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                  Previous
-                </button>
-                <span className="text-gray-700">
-                  Page {currentPage} of {totalPages}
-                </span>
-                <button
-                  onClick={handleNextPage}
-                  disabled={currentPage === totalPages}
-                  className="px-4 py-2 mx-2 bg-[#4AA9AD] text-white rounded disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                  Next
-                </button>
-              </div>
+                Creative Pieces
+              </Link>
             </div>
-
-            {errorMessage && (
-              <div className="mt-2 text-red-500 font-medium">{errorMessage}</div>
-            )}
-            <div className="mt-4 self-end">
-              <button type="submit" className="px-4 py-2 bg-[#4AA9AD] text-white rounded hover:bg-[#3b8b8f]">
-               {isLoading ? "Submitting...": "Submit"}
-              </button>
-            </div>
-          </form>
+          </div>
         </div>
       </div>
       <footer>
-        {/* Footer content */}
-        <div className="bg-[#4AA9AD] px-4 py-2 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <div className="w-6 h-6 bg-black rounded-full" />
-            <div className="text-white">
-              <div className="text-sm">NF</div>
-              <div className="text-xs">The Search</div>
-            </div>
-          </div>
-          <div className="flex space-x-6">
-            <Link href="https://facebook.com" className="text-white">
-              <FaFacebookF size={20} />
-            </Link>
-            <Link href="https://twitter.com" className="text-white">
-              <FaTwitter size={20} />
-            </Link>
-            <Link href="https://instagram.com" className="text-white">
-              <FaInstagram size={20} />
-            </Link>
-          </div>
-          <div className="text-center text-white text-xs mt-10">© Copyright Year</div>
-        </div>
-      </footer>
+                <div className="w-full">
+                    <MusicPlayer/>
+                    <ImageFotter/>                    
+                </div>
+                <RealFooter/>               
+            </footer>
     </>
   );
 };
