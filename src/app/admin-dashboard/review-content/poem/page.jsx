@@ -74,7 +74,7 @@ const DashboardHeader = () => {
               </table>
             </div>
           ) : (
-            <p className="text-white text-center">Loading testimonies...</p>
+            <p className="text-white text-center">Loading content...</p>
           )}
         </div>
       </div>
