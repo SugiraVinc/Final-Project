@@ -17,7 +17,7 @@ const DashboardHeader = () => {
         <div className="mx-auto max-w-5xl rounded-lg bg-black/80 p-6 mt-10 flex flex-col items-center">
           {/* Centered clickable options */}
           <div className="grid grid-cols-2 grid-rows-2 gap-6 text-center items-center">
-            <Link href="/review-content">
+            <Link href="/admin-dashboard/review-content">
               <div className="bg-white text-black py-4 px-8 rounded-md shadow-lg hover:bg-gray-200">
                 Review Content
               </div>

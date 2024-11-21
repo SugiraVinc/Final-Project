@@ -4,7 +4,7 @@ import Header from '@/app/components/Header';
 import Link from 'next/link';
 import { FaFacebookF, FaTwitter, FaInstagram } from 'react-icons/fa';
 import toast from 'react-hot-toast';
-import { usePostContentMutation, useGetContentQuery } from '@/app/slices/userSlices/userApiSlice';
+import { useCreateTestimonyMutation, useGetUserTestimonyQuery } from '@/app/slices/userSlices/userApiSlice';
 
 const DashboardHeader = () => {
   const [selectedFile, setSelectedFile] = useState(null);
@@ -13,8 +13,8 @@ const DashboardHeader = () => {
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
   const fileInputRef = useRef(null);
-  const [postContent, {isLoading}] = usePostContentMutation()
-  const {data: getContent, refetch } = useGetContentQuery()
+  const [postContent, {isLoading}] = useCreateTestimonyMutation()
+  const {data: getContent, refetch } = useGetUserTestimonyQuery()
 
 
   useEffect(() => {

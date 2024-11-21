@@ -29,9 +29,9 @@ const Header = () => {
   return (
     <header className="w-9/12 bg-white p-4 flex justify-between items-center mx-auto">
       {/* Logo */}
-      <div className="flex items-center">
+      <div className="flex items-center font-bold">
         <Link href="/">
-          <img src="/logo.png" alt="Logo" className="w-5 h-5 sm:w-8 sm:h-8" />
+          Murugo
         </Link>
       </div>
 

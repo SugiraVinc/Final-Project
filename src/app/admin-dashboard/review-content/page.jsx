@@ -43,6 +43,14 @@ const DashboardHeader = () => {
               <p className="text-base italic">Creative Pieces</p>
               </Link>
             </div>
+            <div
+              className="text-white py-8 px-6 rounded-lg shadow-lg"
+              style={{ backgroundColor: '#62999D' }}
+            >
+              <Link href='/admin-dashboard/review-content/poem'>
+              <h2 className="text-lg font-bold mb-4">Poem</h2>
+              </Link>
+            </div>
           </div>
         </div>
       </div>

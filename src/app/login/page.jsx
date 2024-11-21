@@ -22,8 +22,10 @@ const Page = () => {
     if (userInfo) {
       if (userInfo.isContributor) {
         router.push('/contributor-dashboard');
-      } else {
-        router.push('/');
+      } else if(userInfo.isAdmin) {
+        router.push('/admin-dashboard');
+      }else {
+        router.push('/')
       }
     }
   }, [router, userInfo]);
@@ -47,8 +49,10 @@ const Page = () => {
   
         if(res.isContributor) {
           router.push('/contributor-dashboard');
-        } else {
-          router.push('/');
+        } else if(res.isAdmin) {
+          router.push('/admin-dashboard');
+        }else {
+          router.push('/')
         }
       }
     } catch (err) {

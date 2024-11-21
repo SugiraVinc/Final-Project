@@ -1,7 +1,7 @@
 'use client';
 import React, { useState } from 'react';
 import {
-  useGetSingleContentQuery,
+  useGetSingleTestimonyQuery,
   useCreateCommentMutation,
   useGetCommentQuery,
   useCreateLikeMutation,
@@ -20,7 +20,7 @@ const Page = () => {
   const params = useParams();
   const id = params.id;
 
-  const { data: content, isLoading: contentLoading } = useGetSingleContentQuery(id);
+  const { data: content, isLoading: contentLoading } = useGetSingleTestimonyQuery(id);
   const { data: commentsData, refetch: refetchComments } = useGetCommentQuery(id);
   const { data: likesData, refetch: refetchLikes } = useGetLikeQuery(id);
   const [createComment] = useCreateCommentMutation();

@@ -1,13 +1,13 @@
 'use client';
 import React from 'react';
-import { useGetAllContentQuery } from '@/app/slices/userSlices/userApiSlice';
+import { useGetAllTestimonyQuery } from '@/app/slices/userSlices/userApiSlice';
 import MusicFooter from '@/app/components/MusicFooter';
 import ImageFotter from '@/app/components/ImageFotter';
 import RealFooter from '@/app/components/RealFooter';
 import Header from '@/app/components/Header';
 
 const DashboardHeader = () => {
-  const { data: content } = useGetAllContentQuery();
+  const { data: content } = useGetAllTestimonyQuery();
 
   return (
     <>

@@ -109,6 +109,14 @@ const DashboardHeader = () => {
               </div>
 
               {/* Choose Room Dropdown */}
+              <Link href='/contributor-dashboard/create-poem'>
+              <div
+                className="block text-center appearance-none w-24 bg-[#E5E7EB] border h-10 border-[#E5E7EB] hover:border-gray-500 px-2 py-1 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
+                
+              >
+               Poem
+              </div>
+              </Link>
               <select
                 value={selectedRoom ? selectedRoom.name : ''}
                 onChange={(e) => handleRoomSelect({ name: e.target.value })}

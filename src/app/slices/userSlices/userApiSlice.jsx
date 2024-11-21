@@ -109,6 +109,74 @@ export const userApiSlice = apiSlice.injectEndpoints({
                 method: 'GET'
             })
         }),
+        createTestimony: builder.mutation({
+            query: (data) => ({
+                url:`/contributor/testimony`,
+                method: 'POST',
+                body: data
+            })
+        }),
+        getUserTestimony: builder.query({
+            query: () => ({
+                url:`/contributor/testimony-user`,
+                method: 'GET',
+            })
+        }),
+        getAllTestimony: builder.query({
+            query: () => ({
+                url:`/contributor/testimony`,
+                method: 'GET',
+            })
+        }),
+        getSingleTestimony: builder.query({
+            query: (id) => ({
+                url:`/contributor/testimony/${id}`,
+                method: 'GET',
+            })
+        }),
+        deleteTestimony: builder.mutation({
+            query: (id) => ({
+                url:`/contributor/testimony/${id}`,
+                method: 'DELETE',
+            })
+        }),
+        deleteContent: builder.mutation({
+            query: (id) => ({
+                url:`/contributor/contributor/${id}`,
+                method: 'DELETE',
+            })
+        }),
+        setContributor: builder.mutation({
+            query: () => ({
+                url:`/contributor/set-contributor`,
+                method: 'PUT',
+            })
+        }),
+        createPoem: builder.mutation({
+            query: (data) => ({
+                url:`/contributor/poem`,
+                method: 'POST',
+                body: data
+            })
+        }),
+        getAllPoem: builder.query({
+            query: () => ({
+                url:`/contributor/poem`,
+                method: 'GET',
+            })
+        }),
+        getSinglePoem: builder.query({
+            query: (id) => ({
+                url:`/contributor/poem/${id}`,
+                method: 'GET',
+            })
+        }),
+        deletePoem: builder.mutation({
+            query: (id) => ({
+                url:`/contributor/poem/${id}`,
+                method: 'DELETE',
+            })
+        }),
         getNotes: builder.query({
             query: () => ({
                 url: '/notes/notes',
@@ -172,5 +240,16 @@ export const {
     useCreateCommentMutation,
     useGetCommentQuery,
     useCreateLikeMutation,
-    useGetLikeQuery
+    useGetLikeQuery,
+    useCreateTestimonyMutation,
+    useGetUserTestimonyQuery,
+    useGetAllTestimonyQuery,
+    useGetSingleTestimonyQuery,
+    useDeleteTestimonyMutation,
+    useDeleteContentMutation,
+    useSetContributorMutation, 
+    useCreatePoemMutation,
+    useGetAllPoemQuery,
+    useGetSinglePoemQuery,
+    useDeletePoemMutation
 } = userApiSlice

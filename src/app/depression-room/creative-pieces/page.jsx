@@ -1,22 +1,26 @@
 'use client'
 import React, { useState, useEffect } from 'react';
 import Header from '@/app/components/Header';
-import { useGetAllContentQuery } from '../../slices/userSlices/userApiSlice';
+import { useGetAllContentQuery, useGetAllPoemQuery } from '../../slices/userSlices/userApiSlice';
 import MusicFooter from '@/app/components/MusicFooter';
 import ImageFotter from '@/app/components/ImageFotter';
 import RealFooter from '@/app/components/RealFooter';
+import Link from 'next/link';
 
 const Page = () => {
     const { data: content, refetch } = useGetAllContentQuery();
+    const { data: poem, refetch: refetchPoem } = useGetAllPoemQuery();
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedMedia, setSelectedMedia] = useState(null);
-    const [showVideos, setShowVideos] = useState(false); 
+    const [showVideos, setShowVideos] = useState(false);
+    const [showPoems, setShowPoems] = useState(false); // State to toggle poem view
 
     useEffect(() => {
         if (content) {
             refetch();
+            refetchPoem();
         }
-    }, [content, refetch]);
+    }, [content, refetch, refetchPoem]);
 
     const handleVideoClick = (media) => {
         setSelectedMedia(media);
@@ -47,66 +51,103 @@ const Page = () => {
                         {/* Navigation Bar */}
                         <div className="w-96 bg-[#8BA6A9] text-white py-2 px-4 flex gap-8 justify-center mb-4">
                             <span
-                                className={`cursor-pointer ${!showVideos ? 'underline' : ''}`}
-                                onClick={() => setShowVideos(false)}
+                                className={`cursor-pointer ${!showVideos && !showPoems ? 'underline' : ''}`}
+                                onClick={() => {
+                                    setShowVideos(false);
+                                    setShowPoems(false);
+                                }}
                             >
                                 Gallery
                             </span>
                             <span>-</span>
                             <span
                                 className={`cursor-pointer ${showVideos ? 'underline' : ''}`}
-                                onClick={() => setShowVideos(true)}
+                                onClick={() => {
+                                    setShowVideos(true);
+                                    setShowPoems(false);
+                                }}
                             >
                                 Videos
                             </span>
-                            <span>Recommendations</span>
+                            <span
+                                className={`cursor-pointer ${showPoems ? 'underline' : ''}`}
+                                onClick={() => {
+                                    setShowVideos(false);
+                                    setShowPoems(true);
+                                }}
+                            >
+                                Poems
+                            </span>
                         </div>
 
                         {/* Media Grid */}
-                        <div className="grid grid-cols-3 gap-4 p-4">
-                            {content &&
-                                content.data
-                                    .filter((cont) => cont.room === "Depression")
-                                    .filter((cont) =>
-                                        showVideos
-                                            ? cont.mediaType === 'video'
-                                            : cont.mediaType === 'image'
-                                    )
-                                    .map((cont) => (
-                                        <div
-                                            key={cont._id}
-                                            className="flex flex-col aspect-square w-60 h-60 cursor-pointer"
-                                        >
+                        {!showPoems && (
+                            <div className="grid grid-cols-3 gap-4 p-4">
+                                {content &&
+                                    content.data
+                                        .filter((cont) => cont.room === 'Depression')
+                                        .filter((cont) =>
+                                            showVideos
+                                                ? cont.mediaType === 'video'
+                                                : cont.mediaType === 'image'
+                                        )
+                                        .map((cont) => (
                                             <div
-                                                className="relative h-52 overflow-hidden rounded-lg shadow-md group"
-                                                onClick={() =>
-                                                    cont.mediaType === 'video' &&
-                                                    handleVideoClick(cont.media)
-                                                }
+                                                key={cont._id}
+                                                className="flex flex-col aspect-square w-60 h-60 cursor-pointer"
                                             >
-                                                {cont.mediaType === 'video' ? (
-                                                    <video
-                                                        src={cont.media.url}
-                                                        className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-                                                        muted
-                                                    />
-                                                ) : (
-                                                    <img
-                                                        src={cont.media.url}
-                                                        alt=""
-                                                        className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-                                                    />
-                                                )}
-                                                <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                                                <div
+                                                    className="relative h-52 overflow-hidden rounded-lg shadow-md group"
+                                                    onClick={() =>
+                                                        cont.mediaType === 'video' &&
+                                                        handleVideoClick(cont.media)
+                                                    }
+                                                >
+                                                    {cont.mediaType === 'video' ? (
+                                                        <video
+                                                            src={cont.media.url}
+                                                            className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                                                            muted
+                                                        />
+                                                    ) : (
+                                                        <img
+                                                            src={cont.media.url}
+                                                            alt=""
+                                                            className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                                                        />
+                                                    )}
+                                                    <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                                                </div>
+                                                <div className="mt-2 text-center">
+                                                    <h3 className="text-white text-sm font-medium bg-[#8BA6A9] py-1 px-3 rounded-full shadow-sm">
+                                                        {cont.title}
+                                                    </h3>
+                                                </div>
                                             </div>
-                                            <div className="mt-2 text-center">
-                                                <h3 className="text-white text-sm font-medium bg-[#8BA6A9] py-1 px-3 rounded-full shadow-sm">
-                                                    {cont.title}
-                                                </h3>
-                                            </div>
-                                        </div>
+                                        ))}
+                            </div>
+                        )}
+
+                        {/* Poems Grid */}
+                        {showPoems && (
+                            <div className="grid grid-cols-3 gap-4 p-4">
+                                {poem &&
+                                    poem.data.filter((cont) => cont.room === 'Depression').map((poemItem) => (
+                                        <Link
+                                            key={poemItem._id}
+                                            href={`/depression-room/creative-pieces/${poemItem._id}`} // Replace with your desired link
+                                            className="block p-4 bg-white rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300"
+                                        >
+                                            <h3 className="text-lg font-bold text-gray-800">
+                                                {poemItem.title}
+                                            </h3>
+                                            <p className="text-sm text-gray-600 mt-2">
+                                                {poemItem.description.slice(0, 50)}...
+                                            </p>
+                                        </Link>
                                     ))}
-                        </div>
+                            </div>
+                        )}
                     </div>
                 </div>
             </main>
