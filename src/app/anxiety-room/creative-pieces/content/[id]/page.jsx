@@ -1,7 +1,7 @@
 'use client';
 import React, { useState } from 'react';
 import {
-  useGetSinglePoemQuery,
+  useGetSingleContentQuery,
   useCreateCommentMutation,
   useGetCommentQuery,
   useCreateLikeMutation,
@@ -20,7 +20,7 @@ const Page = () => {
   const params = useParams();
   const id = params.id;
 
-  const { data: content, isLoading: contentLoading } = useGetSinglePoemQuery(id);
+  const { data: content, isLoading: contentLoading } = useGetSingleContentQuery(id);
   const { data: commentsData, refetch: refetchComments } = useGetCommentQuery(id);
   const { data: likesData, refetch: refetchLikes } = useGetLikeQuery(id);
   const [createComment] = useCreateCommentMutation();
@@ -65,7 +65,7 @@ const Page = () => {
     return <Loader/>
   }
 
-  const { title, description} = content.data;
+  const { title, description, mediaType, media: { url } } = content.data;
   const comments = commentsData?.data || [];
   const totalLikes = likesData?.data?.totalLikes || 0;
 
@@ -93,6 +93,22 @@ const Page = () => {
                 {copyMessage && <span className="text-sm text-green-500">{copyMessage}</span>}
               </div>
             </div>
+
+            {/* Media */}
+            {mediaType === 'image' && (
+              <img
+                src={url}
+                alt={title}
+                className="w-full h-auto max-h-[400px] rounded-lg mb-6 object-cover"
+              />
+            )}
+            {mediaType === 'video' && (
+              <video
+                src={url}
+                controls
+                className="w-full h-auto max-h-[400px] rounded-lg mb-6"
+              />
+            )}
 
             {/* Description */}
             <p className="text-base sm:text-lg text-gray-700 mb-6">{description}</p>

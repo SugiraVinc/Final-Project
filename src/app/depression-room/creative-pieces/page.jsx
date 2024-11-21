@@ -163,7 +163,7 @@ const Page = () => {
                                                         <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                                                     </div>
                                                     <Link
-                                                      href={`/content/${cont._id}`}
+                                                      href={`/depression-room/creative-pieces/content/${cont._id}`}
                                                      className="mt-2 text-center">
                                                         <h3 className="text-white text-sm font-medium bg-[#8BA6A9] py-1 px-3 rounded-full shadow-sm">
                                                             {cont.title}
