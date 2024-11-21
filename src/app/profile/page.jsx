@@ -2,13 +2,14 @@
 import React, { useState } from 'react';
 import Header from '../components/Header';
 import Link from 'next/link';
-import { useDeleteUserMutation, useLogOutMutation } from '../slices/userSlices/userApiSlice';
+import { useDeleteUserMutation, useLogOutMutation, useSetContributorMutation } from '../slices/userSlices/userApiSlice';
 import { useSelector, useDispatch } from 'react-redux';
 import { useRouter } from 'next/navigation';
 import { logOut } from '../slices/userSlices/authSlice';
 import MusicFooter from '../components/MusicFooter';
 import ImageFotter from '../components/ImageFotter';
 import RealFooter from '../components/RealFooter';
+import toast from 'react-hot-toast';
 
 const DashboardHeader = () => {
   const router = useRouter();
@@ -18,6 +19,7 @@ const DashboardHeader = () => {
 
   const [deleteUser] = useDeleteUserMutation();
   const [logoutApi] = useLogOutMutation();
+  const [setContribute, {isLoading}] = useSetContributorMutation()
 
   const handleDelete = async () => {
     if (window.confirm('Are you sure you want to delete your account? This action cannot be undone.')) {
@@ -44,6 +46,16 @@ const DashboardHeader = () => {
     }
   };
 
+  const handleSetContribute = async() => {
+try {
+  await setContribute().unwrap()
+  router.push('/contributor-dashboard')
+  toast.success("You are now a contributor!")
+} catch (error) {
+  console.log(error)
+  toast.error('something is wrong')
+}
+  }
   return (
     <>
       <div className="min-h-screen bg-cover bg-center bg-no-repeat p-8"
@@ -88,9 +100,10 @@ const DashboardHeader = () => {
 
             <div className="relative">
               <button
+              onClick={handleSetContribute}
                 className="bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded flex items-center gap-2 text-sm"
               >
-                Contribute
+                {isLoading? "contribute..":"Contribute"}
               </button>
             </div>
           </div>

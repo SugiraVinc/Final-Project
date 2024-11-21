@@ -97,6 +97,14 @@ const Header = () => {
             Dashboard
           </Link>
         )}
+        {userInfo && userInfo.isAdmin && (
+          <Link
+            href="/admin-dashboard"
+            className="block md:inline text-sm font-semibold px-4 md:px-0"
+          >
+           Admin  Dashboard
+          </Link>
+        )}
       </nav>
     </header>
   );
