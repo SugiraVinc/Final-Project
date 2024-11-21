@@ -83,12 +83,12 @@ const Header = () => {
             LOGIN
           </Link>
         )}
-        <Link
+        {/* <Link
           href="/self-check"
           className="block md:inline text-sm font-semibold px-4 md:px-0"
         >
           SELF CHECK
-        </Link>
+        </Link> */}
         {userInfo && userInfo.isContributor && (
           <Link
             href="/contributor-dashboard"

@@ -16,23 +16,13 @@ const DashboardHeader = () => {
         <Header />
         <div className="mx-auto max-w-5xl rounded-lg bg-black/80 p-6 mt-10 flex flex-col items-center">
           {/* Centered clickable options */}
-          <div className="grid grid-cols-2 grid-rows-2 gap-6 text-center items-center">
+          <div className="grid grid-cols-1 grid-rows-1 gap-6 text-center items-center">
             <Link href="/admin-dashboard/review-content">
               <div className="bg-white text-black py-4 px-8 rounded-md shadow-lg hover:bg-gray-200">
                 Review Content
               </div>
             </Link>
-            <Link href="/safe-space-evaluation">
-              <div className="bg-white text-black py-4 px-8 rounded-md shadow-lg hover:bg-gray-200">
-                Safe Space Evaluation
-              </div>
-            </Link>
-            {/* Positioned on the next row */}
-            <Link href="/self-check-updates">
-              <div className="bg-white text-black py-4 px-8 rounded-md shadow-lg hover:bg-gray-200 col-span-2">
-                Self-check Updates
-              </div>
-            </Link>
+
           </div>
         </div>
       </div>
