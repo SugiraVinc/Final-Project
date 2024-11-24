@@ -96,12 +96,14 @@ const Page = () => {
 
             {/* Media */}
             {mediaType === 'image' && (
-              <img
-                src={url}
-                alt={title}
-                className="w-full h-auto max-h-[400px] rounded-lg mb-6 object-cover"
-              />
-            )}
+  <div className="relative max-w-[800px] rounded-lg mb-6">
+    <img
+      src={url}
+      alt={title}
+      className="w-full h-auto max-h-[400px] max-w-[800px] rounded-lg mx-auto"
+    />
+  </div>
+)}
             {mediaType === 'video' && (
               <video
                 src={url}
