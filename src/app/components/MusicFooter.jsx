@@ -22,19 +22,29 @@ const MusicPlayer = () => {
 
   const playlist = [
     {
-      title: 'NF - HOPE',
+      title: 'Brain Wave Therapy Music',
       artist: 'NF',
-      videoId: 'hQsZUVMwEls',
+      videoId: 'mXw2aAforhg',
     },
     {
-      title: 'The Search',
+      title: 'Hope',
       artist: 'NF',
-      videoId: 'cXIlJYw_r74',
+      videoId: 'tsmPCi7NKrg',
     },
     {
-      title: 'Let You Down',
-      artist: 'NF',
-      videoId: 'A71knrRCiJ0',
+      title: 'Cry',
+      artist: 'Jack Parker',
+      videoId: 'Fr1e_N_ozkI',
+    },
+    {
+      title: 'None',
+      artist: 'Alyne Sano',
+      videoId: 'odHw3Q0kGxM',
+    },
+    {
+      title: 'Unstoppable',
+      artist: 'Sia',
+      videoId: 'YaEG2aWJnZ8',
     },
   ];
 
