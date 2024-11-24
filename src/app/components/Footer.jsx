@@ -4,10 +4,37 @@ import Link from 'next/link';
 
 const Footer = () => {
   const partners = [
-    { name: 'Ikizere', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.' },
-    { name: 'RBC', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.' },
-    { name: 'Ministry of Health', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.' }
+    {
+      name: 'Ikizere',
+      description: (
+        <>
+          <p>Gasabo, City of Kigali</p>
+          <p>P.O Box: 423 Kigali Rwanda</p>
+          <p>Email: ndera.hospital@moh.gov.rw</p>
+          <p>Tel: +250 781 447 928</p>
+        </>
+      ),
+    },
+    { 
+      name: 'RBC', 
+      description: (
+        <>
+          <p>Call Center: 114</p>
+          <p>Ambulance: 912</p>
+          <p>Email: info@rbc.gov.rw</p>
+        </>
+      ),
+    },
+    { name: 'Ministry of Health', 
+      description: (
+        <>
+          <p>Call Center: 114</p>
+          <p>Email: info@moh.gov.rw</p>
+        </>)
+     },
   ];
+  
+  
 
   return (
     <footer>
@@ -19,7 +46,11 @@ const Footer = () => {
             <div className="text-center">
               <img src="/smile.png" alt="Placeholder" className="w-8 h-8 mx-auto mb-4" />
               <h3 className="font-bold mb-2 text-white">Solid Minds</h3>
-              <p className="text-sm text-white">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+              <p className="text-sm text-white">
+                Email: info@solidminds.rw <br />
+                Tel: +250 788 503 528 <br />
+                PO Box 1204 Kigali
+              </p>
             </div>
             {partners.map((partner, index) => (
               <div key={index} className="text-center">
