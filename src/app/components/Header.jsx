@@ -5,11 +5,11 @@ import { useRouter } from 'next/navigation';
 import { useLogOutMutation } from '../slices/userSlices/userApiSlice';
 import { logOut } from '../slices/userSlices/authSlice';
 import { useDispatch, useSelector } from 'react-redux';
-import { FiMenu, FiX } from 'react-icons/fi'; // For mobile menu icons
+import { FiMenu, FiX, FiUser, FiLogOut } from 'react-icons/fi';
 
 const Header = () => {
   const [showDropdown, setShowDropdown] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false); // State for mobile menu
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const router = useRouter();
   const [logout] = useLogOutMutation();
   const dispatch = useDispatch();
@@ -27,21 +27,21 @@ const Header = () => {
   };
 
   return (
-    <header className="w-9/12 bg-white p-4 flex justify-between items-center mx-auto">
+    <header className="w-9/12 bg-gradient-to-r from-gray-100 to-white shadow-lg p-4 flex justify-between items-center rounded-lg mx-auto">
       {/* Logo */}
-      <div className="flex items-center font-bold">
-        <Link href="/">
+      <div className="flex items-center font-bold text-lg text-gray-800">
+        <Link href="/" className="hover:text-blue-600 transition duration-200">
           Murugo
         </Link>
       </div>
 
-      {/* Hamburger Menu for Small Screens */}
+      {/* Hamburger Menu */}
       <div className="md:hidden">
         <button
-          className="text-2xl"
+          className="text-2xl text-gray-600 hover:text-blue-600 transition duration-200"
           onClick={() => setMobileMenuOpen((prev) => !prev)}
         >
-          {mobileMenuOpen ? <FiX /> : <FiMenu />} {/* Toggle Menu Icon */}
+          {mobileMenuOpen ? <FiX /> : <FiMenu />}
         </button>
       </div>
 
@@ -49,7 +49,7 @@ const Header = () => {
       <nav
         className={`${
           mobileMenuOpen ? 'block' : 'hidden'
-        } absolute top-28 left-1/2 transform -translate-x-1/2 w-[80%] bg-white shadow-lg md:static md:transform-none md:top-auto md:left-auto md:w-auto md:flex md:items-center md:space-x-4 text-sm`}
+        } absolute top-28 z-50 left-1/2 transform -translate-x-1/2 w-[80%] bg-white shadow-lg rounded-lg md:static md:transform-none md:top-auto md:left-auto md:w-auto md:flex md:items-center md:space-x-4 text-sm`}
       >
         {userInfo ? (
           <div
@@ -57,20 +57,38 @@ const Header = () => {
             onMouseEnter={() => setShowDropdown(true)}
             onMouseLeave={() => setShowDropdown(false)}
           >
-            <p className="text-sm font-semibold cursor-pointer">{userInfo && userInfo.name}</p>
+            <button
+              className="flex items-center space-x-2 py-2 px-4 rounded-lg hover:bg-gray-50 transition-colors duration-200"
+              onClick={() => setShowDropdown(!showDropdown)}
+            >
+              <span className="text-sm font-semibold">{userInfo && userInfo.name}</span>
+              <svg
+                className={`w-4 h-4 transition-transform duration-200 ${
+                  showDropdown ? 'rotate-180' : ''
+                }`}
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+
             {showDropdown && (
-              <div className="absolute top-full  bg-white border border-gray-300 rounded-md shadow-lg min-w-[120px]">
+              <div className="absolute right-0 mt-0 w-48 bg-white rounded-lg shadow-lg border border-gray-100 py-1 transition-all duration-200 ease-in-out transform opacity-100 scale-100">
                 <Link
                   href="/profile"
-                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-t-md"
+                  className="flex items-center space-x-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors duration-200"
                 >
-                  Profile
+                  <FiUser className="w-4 h-4" />
+                  <span>Profile</span>
                 </Link>
                 <button
                   onClick={handleLogout}
-                  className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-b-md"
+                  className="flex items-center space-x-2 w-full px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition-colors duration-200"
                 >
-                  Logout
+                  <FiLogOut className="w-4 h-4" />
+                  <span>Logout</span>
                 </button>
               </div>
             )}
@@ -78,21 +96,15 @@ const Header = () => {
         ) : (
           <Link
             href="/login"
-            className="block md:inline text-sm font-semibold px-4 md:px-0"
+            className="block md:inline text-sm font-semibold px-4 md:px-0 text-gray-800 hover:text-blue-600 transition duration-200"
           >
             LOGIN
           </Link>
         )}
-        {/* <Link
-          href="/self-check"
-          className="block md:inline text-sm font-semibold px-4 md:px-0"
-        >
-          SELF CHECK
-        </Link> */}
         {userInfo && userInfo.isContributor && (
           <Link
             href="/contributor-dashboard"
-            className="block md:inline text-sm font-semibold px-4 md:px-0"
+            className="block md:inline text-sm font-semibold px-4 md:px-0 text-gray-800 hover:text-blue-600 transition duration-200"
           >
             Dashboard
           </Link>
@@ -100,9 +112,9 @@ const Header = () => {
         {userInfo && userInfo.isAdmin && (
           <Link
             href="/admin-dashboard"
-            className="block md:inline text-sm font-semibold px-4 md:px-0"
+            className="block md:inline text-sm font-semibold px-4 md:px-0 text-gray-800 hover:text-blue-600 transition duration-200"
           >
-           Admin  Dashboard
+            Admin Dashboard
           </Link>
         )}
       </nav>

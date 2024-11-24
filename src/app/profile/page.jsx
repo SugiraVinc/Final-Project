@@ -47,38 +47,38 @@ const DashboardHeader = () => {
   };
 
   const handleSetContribute = async() => {
-try {
-  await setContribute().unwrap()
-  router.push('/contributor-dashboard')
-  toast.success("You are now a contributor!")
-} catch (error) {
-  console.log(error)
-  toast.error('something is wrong')
-}
+    try {
+      await setContribute().unwrap()
+      router.push('/contributor-dashboard')
+      toast.success("You are now a contributor!")
+    } catch (error) {
+      console.log(error)
+      toast.error('something is wrong')
+    }
   }
   return (
     <>
-      <div className="min-h-screen bg-cover bg-center bg-no-repeat p-8"
+      <div className="min-h-screen bg-cover bg-center bg-no-repeat p-4 md:p-8"
         style={{ backgroundImage: `url('/vecteezy_blue-vector-grunge-background_107486.jpg')` }}>
 
         <Header />
-        <div className="mx-auto max-w-5xl rounded-lg bg-black/80 p-6 mt-10 h-[600px] flex flex-col justify-between">
+        <div className="mx-auto max-w-5xl rounded-lg bg-black/80 p-4 md:p-6 mt-6 md:mt-10 min-h-[400px] md:h-[600px] flex flex-col justify-between">
           {/* Top buttons */}
-          <div className="flex justify-between items-center">
-            <div className="relative">
+          <div className="flex flex-col sm:flex-row justify-between items-center gap-4 sm:gap-0">
+            <div className="w-full sm:w-auto">
               <Link href='diary'>
                 <button
-                  className="bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded flex items-center gap-2 text-sm group"
+                  className="w-full sm:w-auto bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded flex items-center justify-center gap-2 text-sm group"
                 >
                   <span>My Diary</span>
                 </button>
               </Link>
             </div>
 
-            <div className="relative">
+            <div className="w-full sm:w-auto">
               <Link href='results'>
                 <button
-                  className="bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded flex items-center gap-2 text-sm"
+                  className="w-full sm:w-auto bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded flex items-center justify-center gap-2 text-sm"
                 >
                   My progress
                 </button>
@@ -87,21 +87,21 @@ try {
           </div>
 
           {/* Bottom buttons */}
-          <div className="flex justify-between items-center">
-            <div className="relative">
+          <div className="flex flex-col sm:flex-row justify-between items-center gap-4 sm:gap-0">
+            <div className="w-full sm:w-auto">
               <button
                 onClick={handleDelete}
                 disabled={isDeleting}
-                className={`bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded flex items-center gap-2 text-sm ${isDeleting ? 'opacity-50 cursor-not-allowed' : ''}`}
+                className={`w-full sm:w-auto bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded flex items-center justify-center gap-2 text-sm ${isDeleting ? 'opacity-50 cursor-not-allowed' : ''}`}
               >
                 {isDeleting ? 'Deleting...' : 'Delete My Account'}
               </button>
             </div>
 
-            <div className="relative">
+            <div className="w-full sm:w-auto">
               <button
-              onClick={handleSetContribute}
-                className="bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded flex items-center gap-2 text-sm"
+                onClick={handleSetContribute}
+                className="w-full sm:w-auto bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded flex items-center justify-center gap-2 text-sm"
               >
                 {isLoading? "contribute..":"Contribute"}
               </button>
@@ -112,12 +112,12 @@ try {
 
       {/* Footer */}
       <footer>
-                <div className="w-full">
-                    <MusicFooter/>
-                    <ImageFotter/>                    
-                </div>
-                <RealFooter/>               
-            </footer>
+        <div className="w-full">
+          <MusicFooter/>
+          <ImageFotter/>                    
+        </div>
+        <RealFooter/>               
+      </footer>
     </>
   );
 };
